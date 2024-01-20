@@ -83,13 +83,13 @@ def makeTiborCurve(crvDATA):
     '''makeTiborCurve(crvDATA)->[tbrIX,tbCrvOBJ,tbCrvHDL,tbParRATE]'''
   # 1.指標金利オブジェクト
     tbCrvHDL = ql.RelinkableYieldTermStructureHandle() 
-    tbrIX = ql.Tibor(pdFreqSA, tbCrvHDL)
+    tbrIX    = ql.Tibor(pdFreqSA, tbCrvHDL)
   # 2. HelperとTONAカーブオブジェクト
     cHelper, tbParRATE = [], []
     for knd, tnr, rt in crvDATA:
        if knd == 'depo': cHelper.append(ql.DepositRateHelper(mu.sqHDL(rt/100),tbrIX)) 
-       if knd == 'swap': cHelper.append(ql.SwapRateHelper(
-               mu.sqHDL(rt/100), ql.Period(tnr), calJP, freqSA, mFLLW, dcA365,tbrIX))
+       if knd == 'swap': cHelper.append(ql.SwapRateHelper(   mu.sqHDL(rt/100),
+                                ql.Period(tnr), calJP, freqSA, mFLLW, dcA365, tbrIX))
        tbParRATE.append(rt/100)                            # パーレート用リスト
     tbCrvOBJ = ql.PiecewiseLogLinearDiscount(Tp2, calJP, cHelper, dcA365)
     tbCrvHDL.linkTo(tbCrvOBJ) ; tbCrvOBJ.enableExtrapolation()
