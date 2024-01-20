@@ -15,29 +15,29 @@ dcA360  =  ql.Actual360()       # includeLastDay=false
 dcA360t =  ql.Actual360(True)  # for CDS
 dc30    =  ql.Thirty360(ql.Thirty360.BondBasis)
 dcAA    =  ql.ActualActual(ql.ActualActual.ISDA)
-# T+ days (settle days)
+# T + Business days (settle days)
 Tp0     =  0
 Tp1     =  1
 Tp2     =  2
 Tp3     =  3
-# payment freqency
+# freqency
 freqA   =  ql.Annual
 freqSA  =  ql.Semiannual
 freqQ   =  ql.Quarterly
 freqD   =  ql.Daily
-# period version for pay freq
+# tenor (period version for freq)
 pdFreqA =  ql.Period(ql.Annual)
 pdFreqSA=  ql.Period(ql.Semiannual)
 pdFreqQ =  ql.Period(ql.Quarterly)
 pdFreqD =  ql.Period(ql.Daily)
-# schedule
+# convension
 mFLLW   =  ql.ModifiedFollowing
 FLLW    =  ql.Following
 unADJ   =  ql.Unadjusted
-# date gene rule
-dgRULEb =  ql.DateGeneration.Backward
-dgRULEf =  ql.DateGeneration.Forward
-dgRULEc =  ql.DateGeneration.CDS
+# date generation                          old
+dtGENb  =  ql.DateGeneration.Backward  # dgRULEb
+dtGENf  =  ql.DateGeneration.Forward   # dgRULEf
+dtGENc  =  ql.DateGeneration.CDS       # dgRULEc
 # end of month
 EoMf    =  False
 EoMt    =  True
@@ -47,7 +47,7 @@ cmpdCNT =  ql.Continuous
 cmpdSPL =  ql.Simple
 # currency
 jpyFX   =  ql.JPYCurrency()
-usdFX   =  ql.JPYCurrency()
+usdFX   =  ql.USDCurrency()
 # CDS : recovery rate / coupon
 rcvRTz  = 0.0     # zero
 rcvRTj  = 0.35    # Japan
