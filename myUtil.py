@@ -10,20 +10,22 @@ def jDT(yyyy,mm,dd):
 def iDT(isoDT): 
   '''iDT(isoDT)=ql.Date(isoDT,'%Y-%m-%d')'''
   return ql.Date(isoDT, '%Y-%m-%d')
-# シリアル値から日付クラス変換
+# (付録) シリアル値から日付クラス変換
 def sDT(serialDT): 
     """serial to QL Date class"""      
     return ql.Date().from_date(dt.datetime(1899,12,30)+ dt.timedelta(serialDT))
     
 ##### ショートカット #####
 # ブラックコンスタントボラTSハンドル
-def bVolTSH(tradeDT, cal, vol, dc):   
-  '''bVolTSH(tradeDT, cal, vol, dc)=ql.BlackVolTSH(ql.BlackConstantVol(...))''' 
+def bVolTSH(tradeDT, vol, cal=calWK, dc=dcA365):   
+  '''bVolTSH(tradeDT, vol, cal=calWK, dc=dcA365)
+                                    =ql.BlackVolTSH(ql.BlackConstantVol(...))''' 
   return ql.BlackVolTermStructureHandle(
-                              ql.BlackConstantVol(tradeDT, cal, vol, dc))
+                    ql.BlackConstantVol(tradeDT, cal, vol, dc))
 # フラットフォワード ** OBJとTSHの2つを戻す点に注意  **
-def ffTSH(tradeDT, rate, dc, cmpd=2, freq=1):   
-  '''ffTSH(tradeDT,rate,dc,cmpd=2,freq=1) = ffCrvOBJ,ql.YTS(ql.FlatForward(...))
+def ffTSH(tradeDT, rate, dc=dcA365, cmpd=2, freq=1):   
+  '''ffTSH(tradeDT,rate,dc=dcA365,cmpd=2,freq=1) 
+                                    = ffCrvOBJ,ql.YTS(ql.FlatForward(...))
      cmpd=2:ql.Continuous, 1:Compounded freq=1:ql.Annual 2:Semiannual''' 
   ffCrvOBJ = ql.FlatForward(tradeDT, rate, dc, cmpd, freq)
   return (ffCrvOBJ, ql.YieldTermStructureHandle(ffCrvOBJ))
